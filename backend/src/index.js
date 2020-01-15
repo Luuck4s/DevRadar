@@ -7,7 +7,9 @@ const app = express()
 
 mongoose.connect(process.env.MONGO, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
 })
 
 app.use(express.json())
