@@ -37,9 +37,12 @@ module.exports = {
                 techs: techsArray,
                 location
             })
-        }
 
-        return res.json(dev)
+            return res.json(dev)
+
+        } else {
+            return res.json({ "error": "dev already registered" })
+        }
     },
 
     async update(req, res) {
@@ -78,10 +81,14 @@ module.exports = {
             }, updateObject)
 
 
-            res.json({ msg: dev ? "Dev updated" : "Dev not found" })
+            if (dev) {
+                res.json({ "message": "Dev updated" })
+            } else {
+                res.json({ "error": "Dev not found" })
+            }
 
         } else {
-            res.json({ msg: "Id is not valid" })
+            res.json({ "error": "Id is not valid" })
         }
     },
 
@@ -93,10 +100,14 @@ module.exports = {
                 _id
             })
 
-            return res.json({ "message": dev ? "Sucess dev deleted" : "Dev not found" })
+            if (dev) {
+                res.json({ "message": "Sucess dev deleted" })
+            } else {
+                res.json({ "error": "Dev not found" })
+            }
 
         } else {
-            return res.json({ "message": "id is not valid" })
+            return res.json({ "error": "id is not valid" })
         }
     }
 }
