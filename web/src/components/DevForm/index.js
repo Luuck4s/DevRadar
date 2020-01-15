@@ -67,7 +67,7 @@ function DevForm({ onSubmit }) {
                         onChange={e => setLongitude(e.target.value)} />
                 </div>
             </div>
-            <button type="submit" >Salvar</button>
+            <button type="submit">Salvar</button>
         </form>
     )
 }

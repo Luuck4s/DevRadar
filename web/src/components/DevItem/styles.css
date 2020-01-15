@@ -49,3 +49,17 @@ li.dev-item a{
 li.dev-item a:hover{
     color: #5a2ea6;
 }
+
+.dev-editable{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.dev-editable .Icon{
+    margin: 2px
+}
+
+.dev-editable .Icon{
+    cursor: pointer;
+}
