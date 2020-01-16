@@ -8,3 +8,6 @@ backend/.env
 web/node_modules
 web/.pnp
 web/.pnp.js
+
+#mobile dependecies
+mobile/node_modules
