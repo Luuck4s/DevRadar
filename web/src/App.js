@@ -10,20 +10,25 @@ import './Main.css'
 
 import DevItem from './components/DevItem'
 import DevForm from './components/DevForm'
+import DevModal from './components/DevModal'
 
 function App() {
 
 	const [devs, setDevs] = useState([])
+	const [modalVisible, setModalVisible] = useState(false)
+	const [idDevUpdate, setIdDevUpdate] = useState('')
 
 	const notifyError = (data) => {
 		toast.error(`${data}`, {
-			position: toast.POSITION.TOP_CENTER
+			position: toast.POSITION.TOP_CENTER,
+			autoClose: 2000
 		});
 	}
 
 	const notifySucess = (data) => {
 		toast.success(`${data}`, {
-			position: toast.POSITION.TOP_CENTER
+			position: toast.POSITION.TOP_CENTER,
+			autoClose: 2000
 		});
 	}
 
@@ -59,8 +64,40 @@ function App() {
 		setDevs(newDevs)
 	}
 
-	async function updateDev(_id){
-		console.log('teste')
+	async function showModalUpdate(_id) {
+		setIdDevUpdate(_id)
+		setModalVisible(true)
+	}
+
+	async function handleUpdate(data) {
+		const response = await api.put(`/devs/${idDevUpdate}`, data)
+		if (response.data.error) {
+			notifyError(response.data.error)
+		} else {
+			const updatedDev = devs.map((dev) => {
+				if (dev._id === idDevUpdate) {
+					const { name, bio, techs } = data
+					
+					if (name) {
+						dev = { ...dev, name }
+					}
+
+					if (bio) {
+						dev = { ...dev, bio }
+					}
+
+					if (techs) {
+						let newTechs = techs.split(', ')
+						dev = { ...dev, techs: newTechs }
+					}
+				}
+
+				return dev
+			})
+			setDevs(updatedDev)
+
+			notifySucess(response.data.message)
+		}
 	}
 
 	return (
@@ -72,11 +109,12 @@ function App() {
 			<main>
 				<ul>
 					{devs.map((dev) => (
-						<DevItem key={dev._id} dev={dev} deleteDev={deleteDev} updateDev={updateDev} />
+						<DevItem key={dev._id} dev={dev} deleteDev={deleteDev} updateDev={showModalUpdate} />
 					))}
 				</ul>
-				<ToastContainer />
 			</main>
+			<ToastContainer />
+			<DevModal visible={modalVisible} closeModal={() => setModalVisible(false)} handleUpdate={handleUpdate} />
 		</div>
 	);
 }

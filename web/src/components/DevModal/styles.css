@@ -1,0 +1,61 @@
+.Dev-modal{
+    position: absolute;
+    width: 50%;
+    height: 60%;
+    top: 20%;
+    left: 30%;
+    right: 30%;
+    bottom: 20%;
+    align-self: center;
+    background-color: #FFF;
+    border-radius: 2px;
+    box-shadow: 0 14px 14px 0 rgba(0, 0, 0, 0.02);
+}
+
+@media (max-width: 760px){
+    .Dev-modal{
+        left: 10%;
+        width: 75%;
+        height: 65%;
+    }
+}
+
+@media (max-width: 375px){
+    .Dev-modal{
+        top: 5%;
+        left: 10%;
+        width: 75%;
+        height: 81%;
+    }
+}
+
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.close{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.Icon{
+    cursor: pointer;
+}
+
+.Title{
+    font-size: 25px;
+    text-align: center;
+    display: block;
+    color: #333;
+}
+
+.formUpdate {
+    margin-top: 20px;
+    padding: 30px;
+}
