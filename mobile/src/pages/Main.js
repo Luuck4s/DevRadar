@@ -5,6 +5,7 @@ import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
 import { MaterialIcons } from '@expo/vector-icons'
 
 import api from '../services/api'
+import { connect, disconnect, subscribeToNewDevs } from '../services/socket'
 
 function Main({ navigation }) {
 
@@ -14,24 +15,19 @@ function Main({ navigation }) {
     const [currentRegion, setCurrentRegion] = useState(null)
 
     useEffect(() => {
+        subscribeToNewDevs(dev => setDevs([...devs, dev]))
+
+    }, [devs])
+
+    useEffect(() => {
         Keyboard.addListener(
             'keyboardDidShow', hanldeKeyboardShow
         )
-    }, []);
 
-    useEffect(() => {
         Keyboard.addListener(
             'keyboardDidHide', hanldeKeyboardHide
         )
     }, []);
-
-    function hanldeKeyboardShow() {
-        setKeyboardStatus(true)
-    }
-
-    function hanldeKeyboardHide() {
-        setKeyboardStatus(false)
-    }
 
     useEffect(() => {
         async function loadInitialPosition() {
@@ -57,12 +53,32 @@ function Main({ navigation }) {
         loadInitialPosition()
     }, [])
 
+    function hanldeKeyboardShow() {
+        setKeyboardStatus(true)
+    }
+
+    function hanldeKeyboardHide() {
+        setKeyboardStatus(false)
+    }
+
     if (!currentRegion) {
         return null
     }
 
     function hanldeRegionChanged(region) {
         setCurrentRegion(region)
+    }
+
+    function setupWebSocket() {
+        disconnect()
+
+        const { latitude, longitude } = currentRegion
+
+        connect(
+            latitude,
+            longitude,
+            techs
+        )
     }
 
     async function loadDevs() {
@@ -77,6 +93,8 @@ function Main({ navigation }) {
         })
 
         setDevs(response.data.devs)
+        setupWebSocket()
+        Keyboard.dismiss()
     }
 
     return (
