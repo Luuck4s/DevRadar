@@ -23,4 +23,6 @@ app.use(cors())
 app.use(express.json())
 app.use(routes)
 
-server.listen(3333)
+server.listen(3333, () => {
+    console.info('[SERVER] server runing in port 3333')
+})
