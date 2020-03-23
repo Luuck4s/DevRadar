@@ -1,8 +1,14 @@
-# DevRadar 
+<h1 align="center">
+	<img alt="DevRadar" src="./assets/devradar.svg" width="250px" />
+</h1>
+
+## DevRadar - Semana OmniStack 10.0
 
 DevRadar foi o projeto desenvolvido na <b>semana OmniStack 10 realizado pela [Rockeseat](https://rocketseat.com.br/)</b>, o projeto tem como intuito criar uma API para servir uma aplicação web e uma aplicação mobile sendo assim a aplicação web para cadastrar os devs e a aplicação mobile para realizar a visualização dos devs no mapa e poder realizar buscas de acordo com a tecnologia.
 
-![graphic ](https://github.com/Luuck4s/DevRadar/blob/master/assets/graphic.png?raw=true)
+<h1 align="center">
+	<img alt="Graphic" src="./assets/graphic.png" width="300px" />
+</h1>
 
 > Preview Web
 <p>
